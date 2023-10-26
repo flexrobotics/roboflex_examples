@@ -1,0 +1,7 @@
+numpy
+roboflex
+roboflex.webcam_uvc
+roboflex.visualization
+roboflex.transport.zmq
+roboflex.profiler
+roboflex.util.jpeg
