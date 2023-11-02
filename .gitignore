@@ -3,6 +3,7 @@ bazel-**
 build
 dist
 pyvenv
+imgui.ini
 __pycache__
 **.ipynb
 **/webcam_fastsam/models/*

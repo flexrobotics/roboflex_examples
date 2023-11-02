@@ -4,7 +4,7 @@ import roboflex.imgui as rgu
 ras.AudioSensor.show_devices()
 
 sensor = ras.AudioSensor(
-    capture_id = 1,
+    capture_id = -1,
     channels = 1,
     sampling_rate = 44100,
     capture_samples = 1024,
