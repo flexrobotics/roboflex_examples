@@ -1,8 +1,8 @@
-import sys, time
+import sys
 from roboflex import GraphRoot, MessagePrinter
 from roboflex.webcam_uvc import WebcamSensor, uvc_frame_format, get_device_list_string
 from roboflex.visualization import RGBImageTV
-from pan_tilt_velocity_controller import get_pan_tilt_pair
+from pan_tilt_velocity_controller import PanTiltController
 from roboflex.transport.zmq import ZMQContext, ZMQPublisher, ZMQSubscriber
 from roboflex.transport.mqtt import MQTTContext, MQTTPublisher
 sys.path.append("./yoloface")
@@ -16,7 +16,7 @@ mqtt_context = MQTTContext()
 metrics_pub = MQTTPublisher(mqtt_context, "localhost", 1883, "metrics")
 
 # zmq transport stuff - used to public images to other threads
-PUB_ADDRESS = "inproc://mycam" #"ipc://mycam"
+PUB_ADDRESS = "inproc://mycam"
 zmq_context = ZMQContext()
 pub = ZMQPublisher(zmq_context, PUB_ADDRESS, max_queued_msgs=1)
 sub1 = ZMQSubscriber(zmq_context, PUB_ADDRESS, max_queued_msgs=1)
@@ -53,13 +53,16 @@ viewer = RGBImageTV(
 )
 
 # create the dynamixel controller
-dynamixel_node, pan_tilt_controller = get_pan_tilt_pair()
+pan_tilt_controller = PanTiltController(
+    device_name='/dev/ttyUSB0', 
+    baud_rate=3_000_000, 
+    dxl_ids=[5,6],
+)
 
 # connect the graph
 gc > webcam > face_detector > pub
 gc > sub1 > viewer 
 gc > sub2 > pan_tilt_controller
-gc > dynamixel_node
 
 # run it all (profile it all)
 gc.profile(node_to_run=viewer)
