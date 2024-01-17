@@ -1,5 +1,5 @@
 import sys
-from roboflex import GraphRoot, MessagePrinter
+from roboflex import GraphRoot
 from roboflex.webcam_uvc import WebcamSensor, uvc_frame_format, get_device_list_string
 from roboflex.visualization import RGBImageTV
 from pan_tilt_velocity_controller import PanTiltController

@@ -19,6 +19,9 @@ class PanTiltController(rxd.DynamixelGroupControllerNode):
         else:
             x = y = 0.5
 
+        if x == -1 and y == -1:
+            x = y = 0.5
+
         dx = x - 0.5
         dy = y - 0.5
         speedx = abs(dx) * self.pantilt_speed
