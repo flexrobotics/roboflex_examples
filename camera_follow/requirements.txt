@@ -1,0 +1,26 @@
+roboflex
+roboflex.webcam.uvc
+roboflex.dynamixel
+roboflex.visualization
+roboflex.transport.zmq
+roboflex.transport.mqtt
+roboflex.imgui
+
+# for YoloV5
+opencv-python
+pandas
+psutil
+PyYAML
+tqdm
+seaborn
+joblib
+
+torch 
+torchvision 
+torchaudio 
+
+numpy
+scikit-learn
+thop
+joblib
+opencv_python

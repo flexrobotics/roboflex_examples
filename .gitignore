@@ -10,3 +10,4 @@ __pycache__
 **/webcam_fastsam/submodules/*
 **.whl
 **.egg-info
+**.jit
