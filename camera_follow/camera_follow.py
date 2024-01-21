@@ -1,5 +1,5 @@
 import sys
-from roboflex import GraphRoot, MessagePrinter, Node
+from roboflex import GraphRoot, MessagePrinter, Null
 from roboflex.webcam_uvc import WebcamSensor, uvc_frame_format, get_device_list_string
 from roboflex.visualization import RGBImageTV
 from pan_tilt_velocity_controller import PanTiltController
@@ -26,10 +26,14 @@ sub2 = ZMQSubscriber(zmq_context, PUB_ADDRESS, max_queued_msgs=1)
 gc = GraphRoot(metrics_pub)
 
 # create the camera sensor node
+# WIDTH=800
+# HEIGHT=600
+# FPS=20
+# FORMAT=uvc_frame_format.UVC_FRAME_FORMAT_ANY
 WIDTH=800
 HEIGHT=600
-FPS=20
-FORMAT=uvc_frame_format.UVC_FRAME_FORMAT_ANY
+FPS=60
+FORMAT=uvc_frame_format.UVC_FRAME_FORMAT_MJPEG
 
 webcam = WebcamSensor(
     width=WIDTH,
@@ -62,7 +66,7 @@ pan_tilt_controller = PanTiltController(
 # connect the graph
 gc > webcam > face_detector > pub
 gc > sub1 > viewer 
-gc > sub2 > pan_tilt_controller > MessagePrinter()
+gc > sub2 > pan_tilt_controller > Null()
 
 # run it all (profile it all)
 gc.profile(node_to_run=viewer)
