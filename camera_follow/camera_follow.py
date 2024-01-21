@@ -1,5 +1,5 @@
 import sys
-from roboflex import GraphRoot
+from roboflex import GraphRoot, MessagePrinter, Node
 from roboflex.webcam_uvc import WebcamSensor, uvc_frame_format, get_device_list_string
 from roboflex.visualization import RGBImageTV
 from pan_tilt_velocity_controller import PanTiltController
@@ -55,14 +55,14 @@ viewer = RGBImageTV(
 # create the dynamixel controller
 pan_tilt_controller = PanTiltController(
     device_name='/dev/ttyUSB0', 
-    baud_rate=3_000_000, 
+    baud_rate=2_000_000, 
     dxl_ids=[5,6],
 )
 
 # connect the graph
 gc > webcam > face_detector > pub
 gc > sub1 > viewer 
-gc > sub2 > pan_tilt_controller
+gc > sub2 > pan_tilt_controller > MessagePrinter()
 
 # run it all (profile it all)
 gc.profile(node_to_run=viewer)
